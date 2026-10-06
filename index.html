@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Платформаға кіру · ҚР ҰК Аттестация</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&subset=latin,cyrillic,cyrillic-ext&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="login">
+
+  <div class="login-page">
+    <aside class="login-hero">
+      <div class="brand">
+        <div class="brand-logo"><i data-lucide="book-open"></i></div>
+        <div>
+          <div class="brand-name" data-i18n="app.short">ҚР ҰК</div>
+          <div class="brand-sub" data-i18n="app.sub">Аттестация</div>
+        </div>
+      </div>
+      <h1 data-i18n="login.hero.title">Қызметкерлерді аттестаттау</h1>
+      <p class="lead" data-i18n="login.hero.text"></p>
+      <ul class="hero-feats">
+        <li><span class="chip"><i data-lucide="clipboard-check"></i></span><span data-i18n="login.hero.f1"></span></li>
+        <li><span class="chip"><i data-lucide="shield-check"></i></span><span data-i18n="login.hero.f2"></span></li>
+        <li><span class="chip"><i data-lucide="clock"></i></span><span data-i18n="login.hero.f3"></span></li>
+      </ul>
+      <div class="hero-date"><i data-lucide="calendar"></i><span data-i18n="app.dates"></span></div>
+    </aside>
+
+    <main class="login-main">
+      <div class="login-top">
+        <div class="lang-switch" role="group" aria-label="Тіл / Язык">
+          <button type="button" data-lang="kz">ҚАЗ</button>
+          <button type="button" data-lang="ru">РУС</button>
+        </div>
+      </div>
+
+      <section class="card login-card">
+        <h2 data-i18n="login.title">Платформаға кіру</h2>
+        <p class="lead" data-i18n="login.lead"></p>
+
+        <div id="closedBanner" class="alert info hidden" style="margin-bottom:16px">
+          <i data-lucide="clock"></i><span data-i18n="login.closed"></span>
+        </div>
+
+        <form id="loginForm" autocomplete="off" novalidate>
+          <div class="field">
+            <label for="nameInput" data-i18n="f.name"></label>
+            <input id="nameInput" class="input" type="text" autocomplete="off" spellcheck="false"
+                   data-i18n-ph="f.name.ph" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="acList">
+            <div id="acList" class="ac-list hidden" role="listbox"></div>
+            <span class="hint" data-i18n="f.name.hint"></span>
+          </div>
+
+          <div class="field">
+            <label for="deptInput" data-i18n="f.dept"></label>
+            <input id="deptInput" class="input" type="text" readonly tabindex="-1" data-i18n-ph="f.auto">
+          </div>
+
+          <div class="field">
+            <label for="posInput" data-i18n="f.pos"></label>
+            <input id="posInput" class="input" type="text" readonly tabindex="-1" data-i18n-ph="f.auto">
+          </div>
+
+          <div class="field">
+            <label for="orgInput" data-i18n="f.org"></label>
+            <input id="orgInput" class="input" type="text" readonly tabindex="-1">
+          </div>
+
+          <div class="field">
+            <label for="codeInput" data-i18n="f.code"></label>
+            <div class="input-wrap">
+              <input id="codeInput" class="input" type="password" inputmode="numeric" maxlength="4"
+                     autocomplete="off" data-i18n-ph="f.code.ph">
+              <button type="button" class="in-icon" id="toggleCode" data-i18n-title="f.code.show"><i data-lucide="eye"></i></button>
+            </div>
+          </div>
+
+          <div id="loginError" class="alert error hidden" style="margin-bottom:16px">
+            <i data-lucide="triangle-alert"></i><span></span>
+          </div>
+
+          <button id="loginBtn" type="submit" class="btn btn-primary btn-block">
+            <i data-lucide="log-out" style="transform:scaleX(-1)"></i><span data-i18n="login.btn">Кіру</span>
+          </button>
+        </form>
+        <p class="login-foot" data-i18n="login.footer"></p>
+      </section>
+    </main>
+  </div>
+
+  <div id="mobileBlock" class="mobile-block hidden">
+    <div class="card overlay-card">
+      <div class="chip lg c-amber"><i data-lucide="triangle-alert"></i></div>
+      <h2 data-i18n="mobile.title"></h2>
+      <p class="msg-alt" data-i18n="mobile.text"></p>
+    </div>
+  </div>
+
+  <div class="toast-host" id="toastHost"></div>
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="config.js"></script>
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

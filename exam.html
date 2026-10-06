@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Аттестация · ҚР ҰК</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&subset=latin,cyrillic,cyrillic-ext&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="exam" class="exam-mode">
+
+  <div class="layout" id="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo"><i data-lucide="book-open"></i></div>
+        <div>
+          <div class="brand-name" data-i18n="app.short">ҚР ҰК</div>
+          <div class="brand-sub" data-i18n="app.sub">Аттестация</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <button class="nav-item" data-view="home"><i data-lucide="layout-dashboard"></i><span data-i18n="nav.home"></span></button>
+        <button class="nav-item" data-view="profile"><i data-lucide="user"></i><span data-i18n="nav.profile"></span></button>
+        <button class="nav-item" data-view="stage1"><i data-lucide="pen-line"></i><span data-i18n="nav.stage1"></span><span class="badge" id="badge1"></span></button>
+        <button class="nav-item" data-view="stage2"><i data-lucide="clipboard-check"></i><span data-i18n="nav.stage2"></span><span class="badge" id="badge2"></span></button>
+        <button class="nav-item" data-view="rules"><i data-lucide="shield-check"></i><span data-i18n="nav.rules"></span></button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="sidebar-note" data-i18n="app.dates"></div>
+        <button class="nav-item nav-exit" id="exitBtn"><i data-lucide="log-out"></i><span data-i18n="nav.exit"></span></button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <h2 id="pageTitle"></h2>
+        <div class="lang-switch" role="group" aria-label="Тіл / Язык">
+          <button type="button" data-lang="kz">ҚАЗ</button>
+          <button type="button" data-lang="ru">РУС</button>
+        </div>
+        <div class="timer" id="timer" data-i18n-title="top.timeLeft"><i data-lucide="clock"></i><span id="timerText">—</span></div>
+        <div class="proctor-status"><span class="dot" id="proctorDot"></span><span id="proctorText" data-i18n="top.proctorOff"></span></div>
+        <div class="user-box">
+          <div class="avatar" id="avatar">—</div>
+          <div>
+            <div class="user-name" id="userName">—</div>
+            <div class="user-pos" id="userPos"></div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <!-- Басты бет -->
+        <section data-section="home" class="view">
+          <div class="card banner">
+            <div class="text">
+              <h1 id="helloText"></h1>
+              <div class="wish" data-i18n="home.wish"></div>
+              <p class="lead" data-i18n="home.lead"></p>
+              <div class="actions" id="homeActions"></div>
+            </div>
+            <svg class="books" viewBox="0 0 240 170" aria-hidden="true">
+              <ellipse cx="120" cy="158" rx="104" ry="9" fill="#DCE6FB"/>
+              <rect x="34" y="122" width="168" height="30" rx="5" fill="#2563EB"/>
+              <rect x="34" y="122" width="12" height="30" rx="3" fill="#1D4ED8"/>
+              <rect x="52" y="131" width="132" height="4" rx="2" fill="#93C5FD"/>
+              <rect x="44" y="94" width="150" height="28" rx="5" fill="#7C3AED"/>
+              <rect x="182" y="94" width="12" height="28" rx="3" fill="#6D28D9"/>
+              <rect x="58" y="103" width="110" height="4" rx="2" fill="#DDD6FE"/>
+              <rect x="28" y="68" width="160" height="26" rx="5" fill="#F59E0B"/>
+              <rect x="28" y="68" width="12" height="26" rx="3" fill="#D97706"/>
+              <rect x="48" y="77" width="120" height="4" rx="2" fill="#FDE68A"/>
+              <rect x="50" y="44" width="134" height="24" rx="5" fill="#16A34A"/>
+              <rect x="172" y="44" width="12" height="24" rx="3" fill="#15803D"/>
+              <rect x="62" y="52" width="96" height="4" rx="2" fill="#BBF7D0"/>
+              <path d="M150 44 L150 20 Q150 12 158 12 L196 12 Q204 12 204 20 L204 44 Z" fill="#E11D48"/>
+              <rect x="160" y="22" width="34" height="4" rx="2" fill="#FECDD3"/>
+              <circle cx="58" cy="30" r="14" fill="#EAF1FF"/>
+              <path d="M52 30 l4 4 l8 -9" stroke="#2563EB" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <div class="stats" style="margin-top:20px">
+            <div class="card stat">
+              <div class="stat-top"><span class="stat-label" data-i18n="card.time"></span><span class="chip c-blue"><i data-lucide="clock"></i></span></div>
+              <div class="stat-value" id="stTime">—</div>
+              <div class="stat-hint" data-i18n="card.timeHint"></div>
+            </div>
+            <div class="card stat">
+              <div class="stat-top"><span class="stat-label" data-i18n="card.tasks"></span><span class="chip c-green"><i data-lucide="pen-line"></i></span></div>
+              <div class="stat-value" id="stTasks">0/5</div>
+              <div class="stat-hint" data-i18n="card.tasksHint"></div>
+            </div>
+            <div class="card stat">
+              <div class="stat-top"><span class="stat-label" data-i18n="card.tests"></span><span class="chip c-purple"><i data-lucide="clipboard-check"></i></span></div>
+              <div class="stat-value" id="stTests">0/0</div>
+              <div class="stat-hint" data-i18n="card.testsHint"></div>
+            </div>
+            <div class="card stat">
+              <div class="stat-top"><span class="stat-label" data-i18n="card.warns"></span><span class="chip c-amber"><i data-lucide="triangle-alert"></i></span></div>
+              <div class="stat-value" id="stWarns">0/3</div>
+              <div class="stat-hint" data-i18n="card.warnsHint"></div>
+            </div>
+            <div class="card stat">
+              <div class="stat-top"><span class="stat-label" data-i18n="card.stage"></span><span class="chip c-pink"><i data-lucide="trophy"></i></span></div>
+              <div class="stat-value text" id="stStage">—</div>
+              <div class="stat-hint" data-i18n="app.dates"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Профиль -->
+        <section data-section="profile" class="view hidden">
+          <div class="card card-pad">
+            <div class="card-head"><span class="chip c-purple"><i data-lucide="user"></i></span><h3 data-i18n="profile.title"></h3></div>
+            <div class="profile-grid" id="profileGrid"></div>
+            <p class="hint" style="margin-top:16px" data-i18n="profile.note"></p>
+          </div>
+        </section>
+
+        <!-- Ережелер -->
+        <section data-section="rules" class="view hidden">
+          <div class="card card-pad">
+            <div class="card-head"><span class="chip c-blue"><i data-lucide="shield-check"></i></span><h3 data-i18n="rules.title"></h3></div>
+            <p class="muted" data-i18n="rules.lead"></p>
+            <div class="stage-row">
+              <div class="stage-box"><span class="chip sm c-green"><i data-lucide="pen-line"></i></span><span id="rulesSt1"></span></div>
+              <div class="stage-box"><span class="chip sm c-purple"><i data-lucide="clipboard-check"></i></span><span id="rulesSt2"></span></div>
+            </div>
+            <ul class="rules-list" id="rulesList"></ul>
+            <div id="startArea">
+              <label class="agree"><input type="checkbox" id="agreeBox"><span data-i18n="rules.agree"></span></label>
+              <div class="start-row">
+                <button class="btn btn-primary" id="startBtn" disabled><i data-lucide="shield-check"></i><span data-i18n="rules.start"></span></button>
+              </div>
+              <div id="startError" class="alert error hidden" style="margin-top:14px"><i data-lucide="triangle-alert"></i><span></span></div>
+            </div>
+            <div id="startedNote" class="alert success hidden" style="margin-top:20px"><i data-lucide="shield-check"></i><span data-i18n="rules.started"></span></div>
+          </div>
+        </section>
+
+        <!-- 1-кезең -->
+        <section data-section="stage1" class="view hidden">
+          <div id="s1Body"></div>
+        </section>
+
+        <!-- 2-кезең -->
+        <section data-section="stage2" class="view hidden">
+          <div id="s2Body"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Экран құлпы -->
+  <div id="lockOverlay" class="overlay hidden" role="alertdialog" aria-modal="true">
+    <div class="card overlay-card">
+      <div class="chip lg c-pink"><i data-lucide="lock"></i></div>
+      <h2 data-i18n="lock.title"></h2>
+      <p class="msg" data-i18n="lock.text"></p>
+      <p class="msg-alt" id="lockAlt"></p>
+      <div class="lock-meta">
+        <div><span data-i18n="lock.type"></span><span id="lockType">—</span></div>
+        <div><span data-i18n="lock.time"></span><span id="lockTime">—</span></div>
+        <div class="warn-count"><span id="lockCount"></span><span><i data-lucide="triangle-alert"></i></span></div>
+      </div>
+      <form id="pinForm" autocomplete="off">
+        <div class="pin-row">
+          <input id="pinInput" class="input" type="password" inputmode="numeric" maxlength="8" autocomplete="off" data-i18n-ph="lock.pin">
+          <button class="btn btn-primary" type="submit" id="pinBtn"><i data-lucide="lock-open"></i><span data-i18n="lock.unlock"></span></button>
+        </div>
+      </form>
+      <div id="pinError" class="alert error hidden"><i data-lucide="triangle-alert"></i><span></span></div>
+      <p class="overlay-note" data-i18n="lock.note"></p>
+    </div>
+  </div>
+
+  <!-- Сессия тоқтатылды -->
+  <div id="haltOverlay" class="overlay hidden" role="alertdialog" aria-modal="true">
+    <div class="card overlay-card">
+      <div class="chip lg c-pink"><i data-lucide="ban"></i></div>
+      <h2 data-i18n="halt.title"></h2>
+      <p class="msg" data-i18n="halt.text"></p>
+      <p class="msg-alt" id="haltAlt"></p>
+    </div>
+  </div>
+
+  <!-- Толық экранға оралу -->
+  <div id="fsOverlay" class="overlay hidden" role="dialog" aria-modal="true">
+    <div class="card overlay-card">
+      <div class="chip lg c-blue"><i data-lucide="monitor"></i></div>
+      <h2 data-i18n="fs.title"></h2>
+      <p class="msg" data-i18n="fs.text"></p>
+      <button class="btn btn-primary" id="fsBtn" style="margin-top:20px"><i data-lucide="monitor"></i><span data-i18n="fs.btn"></span></button>
+      <div id="fsError" class="alert error hidden"><i data-lucide="triangle-alert"></i><span></span></div>
+    </div>
+  </div>
+
+  <!-- Екінші қойынды -->
+  <div id="tabOverlay" class="overlay hidden" role="alertdialog" aria-modal="true">
+    <div class="card overlay-card">
+      <div class="chip lg c-amber"><i data-lucide="triangle-alert"></i></div>
+      <h2 data-i18n="tab.title"></h2>
+      <p class="msg" data-i18n="tab.text"></p>
+    </div>
+  </div>
+
+  <!-- Растау терезесі -->
+  <div id="modal" class="overlay soft hidden" role="dialog" aria-modal="true">
+    <div class="card overlay-card modal-card">
+      <h2 id="modalTitle"></h2>
+      <p class="msg" id="modalText"></p>
+      <div class="actions">
+        <button class="btn btn-outline" id="modalCancel"></button>
+        <button class="btn btn-primary" id="modalOk"></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="camBox" class="cam-box hidden"><video id="camVideo" autoplay muted playsinline></video><span data-i18n="camera.label"></span></div>
+
+  <div id="mobileBlock" class="mobile-block hidden">
+    <div class="card overlay-card">
+      <div class="chip lg c-amber"><i data-lucide="triangle-alert"></i></div>
+      <h2 data-i18n="mobile.title"></h2>
+      <p class="msg-alt" data-i18n="mobile.text"></p>
+    </div>
+  </div>
+
+  <div class="toast-host" id="toastHost"></div>
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="config.js"></script>
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+  <script src="proctor.js"></script>
+</body>
+</html>

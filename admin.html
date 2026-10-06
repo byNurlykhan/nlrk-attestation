@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Админ панелі · ҚР ҰК Аттестация</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&subset=latin,cyrillic,cyrillic-ext&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="admin">
+
+  <!-- Кіру -->
+  <div id="admLogin" class="login-page hidden">
+    <aside class="login-hero">
+      <div class="brand">
+        <div class="brand-logo"><i data-lucide="shield-check"></i></div>
+        <div>
+          <div class="brand-name" data-i18n="app.short">ҚР ҰК</div>
+          <div class="brand-sub" data-i18n="app.sub">Аттестация</div>
+        </div>
+      </div>
+      <h1 data-i18n="adm.title"></h1>
+      <p class="lead" data-i18n="adm.loginLead"></p>
+      <div class="hero-date" style="margin-bottom:auto"><i data-lucide="calendar"></i><span data-i18n="app.dates"></span></div>
+    </aside>
+    <main class="login-main">
+      <div class="login-top">
+        <div class="lang-switch"><button type="button" data-lang="kz">ҚАЗ</button><button type="button" data-lang="ru">РУС</button></div>
+      </div>
+      <section class="card login-card">
+        <h2 data-i18n="adm.loginTitle"></h2>
+        <p class="lead" data-i18n="adm.loginLead"></p>
+        <form id="admForm" autocomplete="off">
+          <div class="field"><label for="admUser" data-i18n="adm.login"></label><input id="admUser" class="input" type="text" autocomplete="username"></div>
+          <div class="field"><label for="admPass" data-i18n="adm.password"></label><input id="admPass" class="input" type="password" autocomplete="current-password"></div>
+          <div id="admError" class="alert error hidden" style="margin-bottom:16px"><i data-lucide="triangle-alert"></i><span></span></div>
+          <button class="btn btn-primary btn-block" type="submit" id="admBtn"><span data-i18n="adm.signin"></span></button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <!-- Панель -->
+  <div id="admApp" class="layout hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo"><i data-lucide="shield-check"></i></div>
+        <div>
+          <div class="brand-name" data-i18n="app.short">ҚР ҰК</div>
+          <div class="brand-sub" data-i18n="app.sub">Аттестация</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <button class="nav-item" data-view="participants"><i data-lucide="users"></i><span data-i18n="adm.nav.participants"></span></button>
+        <button class="nav-item" data-view="violations"><i data-lucide="triangle-alert"></i><span data-i18n="adm.nav.violations"></span><span class="badge" id="badgeLocked"></span></button>
+        <button class="nav-item" data-view="answers"><i data-lucide="pen-line"></i><span data-i18n="adm.nav.answers"></span></button>
+        <button class="nav-item" data-view="results"><i data-lucide="trophy"></i><span data-i18n="adm.nav.results"></span></button>
+        <button class="nav-item" data-view="settings"><i data-lucide="settings"></i><span data-i18n="adm.nav.settings"></span></button>
+        <button class="nav-item" data-view="export"><i data-lucide="download"></i><span data-i18n="adm.nav.export"></span></button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="sidebar-note" id="admWho"></div>
+        <button class="nav-item nav-exit" id="admLogout"><i data-lucide="log-out"></i><span data-i18n="adm.logout"></span></button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <h2 id="admTitle"></h2>
+        <span class="small muted" id="admUpdated"></span>
+        <div class="lang-switch"><button type="button" data-lang="kz">ҚАЗ</button><button type="button" data-lang="ru">РУС</button></div>
+        <span class="pill gray" id="sessPill"><span class="dot" id="sessDot"></span><span id="sessText"></span></span>
+        <button class="btn btn-primary btn-sm" id="sessBtn"></button>
+      </header>
+
+      <div class="content" style="max-width:none">
+        <section class="view" data-section="participants">
+          <div class="adm-stats" id="admStats"></div>
+          <div class="card card-pad" style="margin-top:20px">
+            <div class="toolbar">
+              <input class="input" id="pSearch" data-i18n-ph="adm.search">
+              <select class="input" id="pStatus"></select>
+            </div>
+            <div class="table-wrap"><table class="tbl" id="pTable"></table></div>
+          </div>
+        </section>
+
+        <section class="view hidden" data-section="violations">
+          <div class="card card-pad">
+            <div class="toolbar">
+              <select class="input" id="vWho"></select>
+              <select class="input" id="vType"></select>
+              <select class="input" id="vSev"></select>
+            </div>
+            <div class="table-wrap"><table class="tbl" id="vTable"></table></div>
+          </div>
+        </section>
+
+        <section class="view hidden" data-section="answers">
+          <div class="card card-pad">
+            <div class="toolbar">
+              <select class="input" id="aWho" style="min-width:360px"></select>
+              <span class="spacer"></span>
+              <span class="pill blue" id="aGraded"></span>
+              <span class="pill green" id="aTotal"></span>
+            </div>
+          </div>
+          <div id="aList" style="margin-top:20px"></div>
+        </section>
+
+        <section class="view hidden" data-section="results">
+          <div class="card card-pad">
+            <div class="toolbar">
+              <span class="spacer"></span>
+              <button class="btn btn-outline btn-sm" id="rescoreBtn"><i data-lucide="refresh-cw"></i><span data-i18n="adm.res.rescore"></span></button>
+            </div>
+            <div class="table-wrap"><table class="tbl" id="rTable"></table></div>
+          </div>
+        </section>
+
+        <section class="view hidden" data-section="settings">
+          <div class="card card-pad">
+            <div class="alert info" style="margin-bottom:16px"><i data-lucide="shield-check"></i><span data-i18n="adm.set.note"></span></div>
+            <div class="set-grid" id="setGrid"></div>
+          </div>
+        </section>
+
+        <section class="view hidden" data-section="export">
+          <div class="card center-card">
+            <div class="chip lg c-green"><i data-lucide="download"></i></div>
+            <h2 data-i18n="adm.exp.title"></h2>
+            <p data-i18n="adm.exp.text"></p>
+            <div class="result-box" style="margin-top:22px">
+              <button class="btn btn-primary" id="expXlsx"><i data-lucide="download"></i><span data-i18n="adm.exp.xlsx"></span></button>
+              <button class="btn btn-outline" id="expCsv"><i data-lucide="file-text"></i><span data-i18n="adm.exp.csv"></span></button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div id="mobileBlock" class="mobile-block hidden">
+    <div class="card overlay-card">
+      <div class="chip lg c-amber"><i data-lucide="triangle-alert"></i></div>
+      <h2 data-i18n="mobile.title"></h2>
+      <p class="msg-alt" data-i18n="mobile.text"></p>
+    </div>
+  </div>
+
+  <div class="toast-host" id="toastHost"></div>
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="config.js"></script>
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
