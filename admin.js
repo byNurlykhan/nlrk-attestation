@@ -91,6 +91,7 @@
     try {
       const r = await api('adminData');
       A.data = r;
+      A.loadError = '';
       A.offset = r.now - Date.now();
       $('#admUpdated').textContent = T('adm.updated', { t: new Date().toLocaleTimeString('ru-RU') });
       renderTop();
@@ -100,6 +101,8 @@
       if (A.view === 'settings' && !A.settingsDrawn) renderSettings();
       if (A.view === 'answers' && !$('#aWho').options.length) renderAnswerSelect();
     } catch (e) {
+      A.loadError = App.errText(e);
+      renderSession();
       handleErr(e);
     } finally {
       A.busy = false;
@@ -121,20 +124,38 @@
   function renderTop() {
     const titles = { participants: 'adm.nav.participants', violations: 'adm.nav.violations', answers: 'adm.nav.answers', results: 'adm.nav.results', settings: 'adm.nav.settings', export: 'adm.nav.export' };
     $('#admTitle').textContent = T(titles[A.view]);
+    renderSession();
     if (!A.data) return;
-    const open = !!A.data.settings.sessionOpen;
-    $('#sessPill').className = 'pill ' + (open ? 'green' : 'gray');
-    $('#sessDot').classList.toggle('on', open);
-    $('#sessText').textContent = T(open ? 'adm.sessionOpen' : 'adm.sessionClosed');
-    const btn = $('#sessBtn');
-    btn.textContent = T(open ? 'adm.close' : 'adm.open');
-    btn.className = 'btn btn-sm ' + (open ? 'btn-danger' : 'btn-success');
     const locked = A.data.participants.filter(p => p.locked && !p.halted).length;
     $('#badgeLocked').textContent = locked ? String(locked) : '';
   }
 
+  // Сессия батырмасы: күйі және не болатыны бірден жазылады
+  function renderSession() {
+    const btn = $('#sessBtn');
+    let state, text, hint, icon;
+    if (!A.data) {
+      state = A.loadError ? 'error' : 'loading';
+      text = T(A.loadError ? 'adm.noConnection' : 'adm.loading');
+      hint = A.loadError ? A.loadError : '';
+      icon = A.loadError ? 'triangle-alert' : 'refresh-cw';
+    } else {
+      const open = !!A.data.settings.sessionOpen;
+      state = open ? 'open' : 'closed';
+      text = T(open ? 'adm.sessionOpen' : 'adm.sessionClosed');
+      hint = T(open ? 'adm.clickClose' : 'adm.clickOpen');
+      icon = open ? 'lock-open' : 'lock';
+    }
+    btn.className = 'sess-toggle ' + state;
+    btn.querySelector('.sess-icon').innerHTML = '<i data-lucide="' + icon + '"></i>';
+    $('#sessText').textContent = text;
+    $('#sessHint').textContent = hint;
+    btn.title = hint;
+    App.icons();
+  }
+
   async function toggleSession() {
-    if (!A.data) return;
+    if (!A.data) { refresh(); return; }
     const open = !!A.data.settings.sessionOpen;
     if (!confirm(T(open ? 'adm.confirmClose' : 'adm.confirmOpen'))) return;
     try {

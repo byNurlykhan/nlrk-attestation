@@ -72,8 +72,10 @@
         <h2 id="admTitle"></h2>
         <span class="small muted" id="admUpdated"></span>
         <div class="lang-switch"><button type="button" data-lang="kz">ҚАЗ</button><button type="button" data-lang="ru">РУС</button></div>
-        <span class="pill gray" id="sessPill"><span class="dot" id="sessDot"></span><span id="sessText"></span></span>
-        <button class="btn btn-primary btn-sm" id="sessBtn"></button>
+        <button class="sess-toggle loading" id="sessBtn" type="button">
+          <span class="sess-icon"><i data-lucide="lock"></i></span>
+          <span class="sess-text"><b id="sessText" data-i18n="adm.loading">Жүктелуде…</b><small id="sessHint"></small></span>
+        </button>
       </header>
 
       <div class="content" style="max-width:none">

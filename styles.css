@@ -417,6 +417,23 @@ body.exam-mode { user-select: none; -webkit-user-select: none; }
 body.exam-mode textarea, body.exam-mode input { user-select: text; -webkit-user-select: text; }
 
 /* ================= АДМИН ================= */
+.sess-toggle {
+  display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 16px 0 8px;
+  border-radius: 12px; border: 1px solid var(--border); background: #F1F5F9; color: var(--text);
+  cursor: pointer; text-align: left; transition: background .15s, border-color .15s;
+}
+.sess-toggle .sess-icon { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: #fff; color: var(--muted); }
+.sess-toggle .sess-text { display: flex; flex-direction: column; line-height: 1.2; }
+.sess-toggle b { font-size: 14px; font-weight: 600; }
+.sess-toggle small { font-size: 12px; font-weight: 500; color: var(--muted); }
+.sess-toggle.closed:hover { border-color: #86efac; background: var(--green-bg); }
+.sess-toggle.open { background: var(--green-bg); border-color: #86efac; }
+.sess-toggle.open .sess-icon { background: var(--green); color: #fff; }
+.sess-toggle.open b { color: #166534; }
+.sess-toggle.open:hover { background: #dcfce7; }
+.sess-toggle.error { background: var(--pink-bg); border-color: #fbc7cf; }
+.sess-toggle.error b { color: var(--pink); }
+.sess-toggle.loading { cursor: progress; }
 .adm-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
 .toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
 .toolbar .input { height: 38px; width: auto; min-width: 180px; }
